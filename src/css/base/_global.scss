@@ -1,9 +1,16 @@
+$highlight: rgb(249, 84, 40);
+$dark-accent: rgb(224, 155, 46);
+$light-accent: rgb(247, 178, 57);
+$light-gray: rgb(242, 242, 242);
+$hover-field: rgb(255, 202, 110);
+$tertiary: rgb(46, 114, 224);
+
 body {
     margin: 0;
 }
 
 .app {
-    padding: 10px;
+    padding: 10px 50px;
     height: 100vh;
     display: flex;
     box-sizing: border-box;
@@ -16,12 +23,17 @@ body {
 h1 {
     text-align: center;
     font-family: 'Dosis', sans-serif;
+    font-size: 2.5em;
+    a {
+        color: $dark-accent;
+    }
 }
 
 main {
     flex: 1 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 a {

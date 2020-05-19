@@ -1,20 +1,63 @@
 .search {
     display: flex;
-    margin: 30px 0;
+    flex: 1 1;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0;
+    width: 100%;
+
+    form {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin: 5px 0;
+    }
+
     label {
-        margin-right: 5px;
+        margin-right: 10px;
+        font-weight: bold;
     }
-    input[type=search] {
+
+    input {
         -webkit-appearance: none;
+        border: none;
+        border-bottom: 2px solid $highlight;
+        width: 200px;
+        font-family: inherit;
+        padding-right: 25px;
+        flex: 1 1;
+    }
+
+    input:hover, input:focus {
+        background-color: $light-gray;
+    }
+
+    input, select {
         outline: none;
-        border: 1px solid rgb(73, 9, 9);
-        width: 20vw;
-        max-width: 100px;
     }
+    
+    input, button {
+        font-size: 1em;
+    }
+    
     button {
-        margin-right: 40px;
-        border: 1px solid rgb(73, 9, 9);
-        background: rgb(73, 9, 9);
-        color: white;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        text-align: center;
+        border: none;
+        background: transparent;
+        color: black;
+        padding-left: 0;
     }
+
+    button:hover {
+        color: $tertiary;
+    }
+
+    select {
+        border: 2px solid $highlight;
+    }
+
 }

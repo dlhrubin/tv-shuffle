@@ -2,14 +2,7 @@ import React from 'react';
 
 const Results = () => (
     <section id="results" className="results">
-        <div>
-        <span className="result-label">Season</span>
-        <span className="result-number">1</span>
-        </div>
-        <div>
-        <span className="result-label">Episode</span>
-        <span className="result-number">1</span>
-        </div>
+        <p>Watch season <span>?</span>, episode <span>?</span> of the show <span>?</span></p>
     </section>
 )
 

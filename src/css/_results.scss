@@ -1,18 +1,18 @@
 .results {
     flex: 1 1;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-
-    div {
-        margin: 20px;
-        width: 180px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 1.8em;
+    margin-top: 20px;
+    p {
+        width: 100%;
+        font-size: 1.5em;
+        text-align: center;
     }
-    .result-number {
-        border-bottom: 2px solid tan;
+
+    span {
+        width: 30px;
+        text-align: center;
+        color: $tertiary;
+        font-weight: bold;
     }
 }

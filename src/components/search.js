@@ -6,15 +6,14 @@ const Search = () => (
             <label htmlFor="find-show">
                 Show
             </label>
-            <input id="find-show" type="search"/>
+            <input id="find-show" type="search" autoComplete="off"/>
             <button type="submit"><i className="fas fa-search"/></button>
         </form>
         <form>
             <label htmlFor="select-season">
                 Season (optional)
             </label>
-            <select id="select-season">
-                </select>
+            <select id="select-season" />
         </form>
 
     </section>
