@@ -1,7 +1,27 @@
 body {
-    margin: 10px;
+    margin: 0;
+}
+
+.app {
+    padding: 10px;
+    height: 100vh;
     display: flex;
-    justify-content: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Dosis', sans-serif;
+}
+
+main {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
@@ -9,6 +29,7 @@ a {
     color: black;
 }
 
-h1 {
-    text-align: center;
+button {
+    cursor: pointer;
+    outline: none;
 }
