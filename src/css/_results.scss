@@ -1,0 +1,18 @@
+.results {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    p {
+        width: 100%;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    span {
+        width: 30px;
+        text-align: center;
+        color: $tertiary;
+        font-weight: bold;
+    }
+}

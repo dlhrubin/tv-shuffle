@@ -1,0 +1,13 @@
+@media only screen and (min-width: 500px) {
+    .search {
+        flex: none;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 7vh 0;
+        width: 450px;
+
+        form {
+            margin: 0;
+        }
+    }
+}
