@@ -8,7 +8,7 @@
 
     form {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         position: relative;
         margin: 5px 0;
     }
@@ -60,4 +60,15 @@
         border: 2px solid $highlight;
     }
 
+}
+
+.input-container {
+    position: relative;
+}
+
+.error {
+    display: block;
+    height: 0.875em;
+    font-size: 0.875em;
+    color: red;
 }
