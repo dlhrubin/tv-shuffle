@@ -5,6 +5,7 @@ import config from '../../../config';
 const Search = ({handleSetShow}) => {
 
     const [query, setQuery] = useState('');
+    const [seasonOptions, setSeasonOptions] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSearchShow = (e) => {
@@ -33,27 +34,42 @@ const Search = ({handleSetShow}) => {
                     }).then((res) => {
                         // No check for non-zero length results here b/c we're searching by ID number, so we already know this show is in the database
                         const showInfo = res.data;
-                        // Map episode numbers to seasons
-                        let episodeCounter = 0;
-                        let episodeMap = [];
-                        let seasons = [];
-                        for (let i = 1; i <= showInfo.number_of_seasons; i++) {
-                            const season = showInfo.seasons.filter(s => s.season_number === i)[0];
-                            seasons.push(season.season_number);
-                            episodeMap.push({
-                                                first: episodeCounter + 1,
-                                                last: episodeCounter + season.episode_count,
-                                                season: season.season_number
-                                            })
-                            episodeCounter += season.episode_count;
+                        // Check that show has at least 1 episode
+                        if (!showInfo.number_of_episodes) {
+                            setErrorMessage('No data available for this title')
+                        } else {
+                            // Map episode numbers to seasons
+                            let episodeCounter = 0;
+                            let episodeMap = [];
+                            let seasons = [];
+                            let missingData = false;
+                            for (let i = 1; i <= showInfo.number_of_seasons; i++) {
+                                const season = showInfo.seasons.filter(s => s.season_number === i)[0];
+                                if (!season) {
+                                    missingData = true;
+                                    break;
+                                }
+                                seasons.push(season.season_number);
+                                episodeMap.push({
+                                                    first: episodeCounter + 1,
+                                                    last: episodeCounter + season.episode_count,
+                                                    season: season.season_number
+                                                })
+                                episodeCounter += season.episode_count;
+                            }
+                            if (missingData) {
+                                setErrorMessage('No data available for this title')
+                            } else {
+                                handleSetShow({
+                                    name: show.name,
+                                    id: show.id,
+                                    // Catch if a show doesn't have a poster
+                                    poster: (show.hasOwnProperty('poster_path') && show.poster_path) ? "http://image.tmdb.org/t/p/w500".concat(show.poster_path) : null,
+                                    episodeMap,
+                                });
+                                setSeasonOptions(seasons);
+                            }
                         }
-                        handleSetShow({
-                            name: show.name,
-                            id: show.id,
-                            poster: "http://image.tmdb.org/t/p/w500".concat(show.poster_path),
-                            seasons,
-                            episodeMap,
-                        });
                     })
                 } else {
                     setErrorMessage('Show title not found')
@@ -70,7 +86,7 @@ const Search = ({handleSetShow}) => {
                 </label>
                 <div>
                     <div className="input-container">
-                        <input id="find-show" type="search" autoComplete="off" value={query} onChange={(e) => {setQuery(e.target.value); setErrorMessage('')}}/>
+                        <input id="find-show" type="search" autoComplete="off" value={query} onChange={(e) => {setQuery(e.target.value); setErrorMessage(''); setSeasonOptions(null); handleSetShow(null)}}/>
                         <button type="submit"><i className="fas fa-search"/></button>
                     </div>
                     <span className="error">{errorMessage}</span>
@@ -80,7 +96,10 @@ const Search = ({handleSetShow}) => {
                 <label htmlFor="select-season">
                     Season (optional)
                 </label>
-                <select id="select-season" />
+                <select id="select-season">
+                    {seasonOptions && <option value="none">{''}</option>}
+                    {seasonOptions && seasonOptions.map(s => <option value={s} key={s}>{s}</option>)}
+                </select>
             </form>
         </section>
     )

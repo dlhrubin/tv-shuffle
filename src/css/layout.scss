@@ -1,5 +1,6 @@
 @import "base/global";
-@import "search";
-@import "shuffle";
-@import "results";
+@import "randomGenerator/search";
+@import "randomGenerator/shuffle";
+@import "randomGenerator/previewImage";
+@import "randomGenerator/results";
 @import "base/media_queries";
