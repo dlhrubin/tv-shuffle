@@ -11,10 +11,10 @@ const RandomGenerator = () => {
 
     return (
         <>
-            <Search handleSetShow={setShow}/>
-            <Shuffle />
-            <PreviewImage poster={show ? show.poster : null} name={show ? show.name : ''}/>
-            <Results />
+            <Search handleSetShow={setShow} handleSetSeason={setSeason}/>
+            <Shuffle id={show?.id} episodeMap={show?.episodeMap} num_episodes={show?.num_episodes} season={season}/>
+            <PreviewImage poster={show?.poster} name={show?.name}/>
+            <Results name={show?.name} season={season}/>
         </>
     )
 }

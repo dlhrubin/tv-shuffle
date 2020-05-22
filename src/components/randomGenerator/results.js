@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Results = () => (
+const Results = ({name, season}) => (
     <section id="results" className="results">
-        <p>Watch season <span>?</span>, episode <span>?</span> of the show <span>?</span></p>
+        {season && <p>Watch season <span>{season}</span>, episode <span>?</span> of the show <span>{name}</span></p>}
     </section>
 )
 

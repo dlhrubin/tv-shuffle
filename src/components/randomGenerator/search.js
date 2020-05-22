@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import config from '../../../config';
+import { number } from 'prop-types';
 
-const Search = ({handleSetShow}) => {
+const Search = ({handleSetShow, handleSetSeason}) => {
 
     const [query, setQuery] = useState('');
     const [seasonOptions, setSeasonOptions] = useState(null);
@@ -57,7 +58,7 @@ const Search = ({handleSetShow}) => {
                                                 })
                                 episodeCounter += season.episode_count;
                             }
-                            if (missingData) {
+                            if (missingData || episodeCounter !== showInfo.number_of_episodes) {
                                 setErrorMessage('No data available for this title')
                             } else {
                                 handleSetShow({
@@ -65,6 +66,7 @@ const Search = ({handleSetShow}) => {
                                     id: show.id,
                                     // Catch if a show doesn't have a poster
                                     poster: (show.hasOwnProperty('poster_path') && show.poster_path) ? "http://image.tmdb.org/t/p/w500".concat(show.poster_path) : null,
+                                    num_episodes: showInfo.number_of_episodes,
                                     episodeMap,
                                 });
                                 setSeasonOptions(seasons);
@@ -78,6 +80,13 @@ const Search = ({handleSetShow}) => {
         }
     }
 
+    const handleReset = () => {
+        setErrorMessage(''); 
+        setSeasonOptions(null); 
+        handleSetShow(null); 
+        handleSetSeason(null); 
+    }
+
     return (
         <section id="search" className="search">
             <form onSubmit={handleSearchShow}>
@@ -86,7 +95,7 @@ const Search = ({handleSetShow}) => {
                 </label>
                 <div>
                     <div className="input-container">
-                        <input id="find-show" type="search" autoComplete="off" value={query} onChange={(e) => {setQuery(e.target.value); setErrorMessage(''); setSeasonOptions(null); handleSetShow(null)}}/>
+                        <input id="find-show" type="search" autoComplete="off" value={query} onChange={(e) => {setQuery(e.target.value); handleReset()}}/>
                         <button type="submit"><i className="fas fa-search"/></button>
                     </div>
                     <span className="error">{errorMessage}</span>
@@ -96,8 +105,8 @@ const Search = ({handleSetShow}) => {
                 <label htmlFor="select-season">
                     Season (optional)
                 </label>
-                <select id="select-season">
-                    {seasonOptions && <option value="none">{''}</option>}
+                <select id="select-season" style={{borderColor: seasonOptions ? '' : 'lightgray'}} onChange={(e) => handleSetSeason(e.target.value)}>
+                    {seasonOptions && <option value={null} />}
                     {seasonOptions && seasonOptions.map(s => <option value={s} key={s}>{s}</option>)}
                 </select>
             </form>
