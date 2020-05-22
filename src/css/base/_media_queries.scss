@@ -1,4 +1,4 @@
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 550px) {
     .search {
         flex: none;
         flex-direction: row;
@@ -7,7 +7,7 @@
         width: 450px;
 
         form {
-            margin: 0;
+            margin: 0.875em 0 0 0;
         }
     }
 }

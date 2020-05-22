@@ -4,11 +4,10 @@
     flex-direction: column;
     justify-content: center;
     margin: 20px 0;
-    width: 100%;
 
     form {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         position: relative;
         margin: 5px 0;
     }
@@ -16,6 +15,7 @@
     label {
         margin-right: 10px;
         font-weight: bold;
+        margin-bottom: 0.95em;
     }
 
     input {
@@ -58,6 +58,24 @@
 
     select {
         border: 2px solid $highlight;
+        font-size: 0.875em;
+        width: 3em;
+        margin-bottom: 0.875em;
     }
 
+}
+
+.search, form > div, .search input {
+    width: 100%;
+}
+
+.input-container {
+    position: relative;
+}
+
+.error {
+    display: block;
+    height: 0.875em;
+    font-size: 0.875em;
+    color: red;
 }
