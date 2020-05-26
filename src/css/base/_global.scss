@@ -2,6 +2,7 @@ $highlight: rgb(249, 84, 40);
 $dark-accent: rgb(224, 155, 46);
 $light-accent: rgb(247, 178, 57);
 $light-gray: rgb(242, 242, 242);
+$dark-gray: rgb(170, 170, 170);
 $hover-field: rgb(255, 202, 110);
 $tertiary: rgb(46, 114, 224);
 
@@ -34,6 +35,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 550px;
 }
 
 a {

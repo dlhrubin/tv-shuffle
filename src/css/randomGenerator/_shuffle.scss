@@ -19,4 +19,8 @@
     button:hover {
         color: $highlight;
     }
+
+    button:disabled {
+        color: $dark-gray;
+    }
 }

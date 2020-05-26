@@ -3,7 +3,7 @@ import React from 'react';
 const PreviewImage = ({poster, name}) => {
     // SVG from https://www.svgrepo.com/svg/77175/popcorn
     const image = poster ? 
-                <img src={poster} alt={name.concat(' poster')}/> :        
+                <img src={poster} alt={name + ' poster'}/> :        
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                     viewBox="0 0 512 512" style={{enableBackground: "new 0 0 512 512"}}>
                     <path style={{fill: "#F7B239"}} d="M92.483,73.768c-1.617-3.948-2.506-8.273-2.506-12.8c0-18.621,15.091-33.725,33.725-33.725

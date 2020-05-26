@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import config from '../../../config';
-import { number } from 'prop-types';
 
-const Search = ({handleSetShow, handleSetUserSeason}) => {
+const Search = ({handleSetShow, handleSetUserSeason, handleSetEpisode}) => {
 
     const [query, setQuery] = useState('');
     const [seasonOptions, setSeasonOptions] = useState(null);
@@ -27,7 +26,7 @@ const Search = ({handleSetShow, handleSetUserSeason}) => {
                     const show = results[0];
                     setQuery(show.name);
                     // Fetch season/episode info using show ID
-                    axios.get("https://api.themoviedb.org/3/tv/".concat(show.id),
+                    axios.get(`https://api.themoviedb.org/3/tv/${show.id}`,
                     {
                         params: {
                             api_key: config.KEY,
@@ -65,7 +64,7 @@ const Search = ({handleSetShow, handleSetUserSeason}) => {
                                     name: show.name,
                                     id: show.id,
                                     // Catch if a show doesn't have a poster
-                                    poster: (show.hasOwnProperty('poster_path') && show.poster_path) ? "http://image.tmdb.org/t/p/w500".concat(show.poster_path) : null,
+                                    poster: (show.hasOwnProperty('poster_path') && show.poster_path) ? `http://image.tmdb.org/t/p/w500${show.poster_path}` : null,
                                     numEpisodes: showInfo.number_of_episodes,
                                     episodeMap,
                                 });
@@ -85,6 +84,7 @@ const Search = ({handleSetShow, handleSetUserSeason}) => {
         setSeasonOptions(null); 
         handleSetShow(null); 
         handleSetUserSeason(null); 
+        handleSetEpisode(null);
     }
 
     return (
@@ -105,8 +105,8 @@ const Search = ({handleSetShow, handleSetUserSeason}) => {
                 <label htmlFor="select-season">
                     Season (optional)
                 </label>
-                <select id="select-season" style={{borderColor: seasonOptions ? '' : 'lightgray'}} onChange={(e) => handleSetUserSeason(e.target.value ? parseInt(e.target.value) : null)}>
-                    {seasonOptions && <option value={null} />}
+                <select id="select-season" disabled={seasonOptions ? false : true} onChange={(e) => {handleSetUserSeason(e.target.value ? parseInt(e.target.value) : null); handleSetEpisode(null)}}>
+                    {seasonOptions && <option value={null}>All</option>}
                     {seasonOptions && seasonOptions.map(s => <option value={s} key={s}>{s}</option>)}
                 </select>
             </form>

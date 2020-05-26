@@ -12,10 +12,17 @@ const RandomGenerator = () => {
 
     return (
         <>
-            <Search handleSetShow={setShow} handleSetUserSeason={setUserSeason}/>
-            <Shuffle id={show?.id} episodeMap={show?.episodeMap} numEpisodes={show?.numEpisodes} userSeason={userSeason} handleSetRandomSeason={setRandomSeason}/>
+            <Search handleSetShow={setShow} handleSetUserSeason={setUserSeason} handleSetEpisode={setEpisode}/>
+            <Shuffle 
+                id={show?.id} 
+                episodeMap={show?.episodeMap} 
+                numEpisodes={show?.numEpisodes} 
+                userSeason={userSeason} 
+                handleSetRandomSeason={setRandomSeason}
+                handleSetEpisode={setEpisode}
+            />
             <PreviewImage poster={show?.poster} name={show?.name}/>
-            <Results name={show?.name} season={userSeason || randomSeason}/>
+            <Results name={show?.name} season={userSeason || randomSeason} episode={episode}/>
         </>
     )
 }
