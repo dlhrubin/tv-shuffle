@@ -11,3 +11,20 @@
         }
     }
 }
+
+@media only screen and (min-height: 600px) {
+    .preview-image {
+        svg, img {
+            height: 33vh;
+            max-height: 250px;
+        }
+    }
+
+    .results {
+        flex: 1 1;
+    }
+
+    .results p {
+        margin: auto;
+    }
+}
