@@ -6,15 +6,16 @@ import Results from './randomGenerator/results';
 
 const RandomGenerator = () => {
     const [show, setShow] = useState(null);
-    const [season, setSeason] = useState(null);
+    const [userSeason, setUserSeason] = useState(null);
+    const [randomSeason, setRandomSeason] = useState(null);
     const [episode, setEpisode] = useState(null);
 
     return (
         <>
-            <Search handleSetShow={setShow} handleSetSeason={setSeason}/>
-            <Shuffle id={show?.id} episodeMap={show?.episodeMap} num_episodes={show?.num_episodes} season={season}/>
+            <Search handleSetShow={setShow} handleSetUserSeason={setUserSeason}/>
+            <Shuffle id={show?.id} episodeMap={show?.episodeMap} numEpisodes={show?.numEpisodes} userSeason={userSeason} handleSetRandomSeason={setRandomSeason}/>
             <PreviewImage poster={show?.poster} name={show?.name}/>
-            <Results name={show?.name} season={season}/>
+            <Results name={show?.name} season={userSeason || randomSeason}/>
         </>
     )
 }

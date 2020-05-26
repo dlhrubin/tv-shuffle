@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../../../config';
 import { number } from 'prop-types';
 
-const Search = ({handleSetShow, handleSetSeason}) => {
+const Search = ({handleSetShow, handleSetUserSeason}) => {
 
     const [query, setQuery] = useState('');
     const [seasonOptions, setSeasonOptions] = useState(null);
@@ -66,7 +66,7 @@ const Search = ({handleSetShow, handleSetSeason}) => {
                                     id: show.id,
                                     // Catch if a show doesn't have a poster
                                     poster: (show.hasOwnProperty('poster_path') && show.poster_path) ? "http://image.tmdb.org/t/p/w500".concat(show.poster_path) : null,
-                                    num_episodes: showInfo.number_of_episodes,
+                                    numEpisodes: showInfo.number_of_episodes,
                                     episodeMap,
                                 });
                                 setSeasonOptions(seasons);
@@ -84,7 +84,7 @@ const Search = ({handleSetShow, handleSetSeason}) => {
         setErrorMessage(''); 
         setSeasonOptions(null); 
         handleSetShow(null); 
-        handleSetSeason(null); 
+        handleSetUserSeason(null); 
     }
 
     return (
@@ -105,7 +105,7 @@ const Search = ({handleSetShow, handleSetSeason}) => {
                 <label htmlFor="select-season">
                     Season (optional)
                 </label>
-                <select id="select-season" style={{borderColor: seasonOptions ? '' : 'lightgray'}} onChange={(e) => handleSetSeason(e.target.value)}>
+                <select id="select-season" style={{borderColor: seasonOptions ? '' : 'lightgray'}} onChange={(e) => handleSetUserSeason(e.target.value ? parseInt(e.target.value) : null)}>
                     {seasonOptions && <option value={null} />}
                     {seasonOptions && seasonOptions.map(s => <option value={s} key={s}>{s}</option>)}
                 </select>
