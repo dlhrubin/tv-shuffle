@@ -1,20 +1,20 @@
 .results {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 6.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 6.2em;
 
-    p {
-        width: 100%;
-        font-size: 1.25em;
-        text-align: center;
-        margin: 0;
-    }
+  p {
+    width: 100%;
+    font-size: 1.25em;
+    text-align: center;
+    margin: 0;
+  }
 
-    span {
-        width: 30px;
-        text-align: center;
-        color: $tertiary;
-        font-weight: bold;
-    }
+  span {
+    width: 30px;
+    text-align: center;
+    color: $tertiary;
+    font-weight: bold;
+  }
 }

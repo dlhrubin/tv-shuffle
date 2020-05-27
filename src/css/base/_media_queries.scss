@@ -1,29 +1,30 @@
 @media only screen and (min-width: 450px) {
-    .app {
-        max-height: 700px;
-        border: 2px solid $highlight;
-        border-radius: 5px;
-    }
-    .results {
-        min-height: 3.5em;
-    }
+  .app {
+    max-height: 700px;
+    border: 2px solid $highlight;
+    border-radius: 5px;
+  }
+
+  .results {
+    min-height: 3.5em;
+  }
 }
 
 @media only screen and (min-width: 550px) {
-    .search {
-        flex: none;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 450px;
+  .search {
+    flex: none;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 450px;
 
-        form {
-            margin: 0.875em 0 0 0;
-        }
+    form {
+      margin: 0.875em 0 0 0;
     }
+  }
 }
 
 @media only screen and (min-height: 600px) {
-    .preview-image {
-        display: block;
-    }
+  .preview-image {
+    display: block;
+  }
 }

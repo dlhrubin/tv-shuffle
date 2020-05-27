@@ -1,26 +1,26 @@
 .shuffle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    span {
-        font-weight: bold;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    button {
-        background: transparent;
-        border: none;
-        font-size: 3em;
-        color: $tertiary;
-    }
+  span {
+    font-weight: bold;
+  }
 
-    button:hover {
-        color: $highlight;
-    }
+  button {
+    background: transparent;
+    border: none;
+    font-size: 3em;
+    color: $tertiary;
+  }
 
-    button:disabled {
-        color: $dark-gray;
-        cursor: auto;
-    }
+  button:hover {
+    color: $highlight;
+  }
+
+  button:disabled {
+    color: $dark-gray;
+    cursor: auto;
+  }
 }
