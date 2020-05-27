@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import config from '../../../config';
 
@@ -7,21 +7,28 @@ const getRandom = (total) => {
 }
 
 const Shuffle = ({id, episodeMap, numEpisodes, userSeason, handleSetRandomSeason, handleSetEpisode}) => {
+
+    const [selected, setSelected] = useState(null);
+
     const handleClick = () => {
-        let seasonEpisode;
-        let season;
-        // If user has selected a season, generate random episode within that season
-        if (userSeason) {
-            const seasonInfo = episodeMap.filter(map => map.season === userSeason)[0];
-            seasonEpisode = getRandom(seasonInfo.last - seasonInfo.first + 1);
-            season = userSeason;
-        // If no season selected, generate random season and episode
-        } else {
-            const showEpisode = getRandom(numEpisodes);
-            const seasonInfo = episodeMap.filter(map => map.first <= showEpisode && map.last >= showEpisode)[0];
-            seasonEpisode = showEpisode - seasonInfo.first + 1;
-            season = seasonInfo.season;
+        let season = selected?.season;
+        let seasonEpisode = selected?.seasonEpisode;
+        // Shuffle until a new episode is selected
+        while (season === selected?.season && seasonEpisode === selected?.seasonEpisode) {
+            // If user has selected a season, generate random episode within that season
+            if (userSeason) {
+                const seasonInfo = episodeMap.filter(map => map.season === userSeason)[0];
+                seasonEpisode = getRandom(seasonInfo.last - seasonInfo.first + 1);
+                season = userSeason;
+            // If no season selected, generate random season and episode
+            } else {
+                const showEpisode = getRandom(numEpisodes);
+                const seasonInfo = episodeMap.filter(map => map.first <= showEpisode && map.last >= showEpisode)[0];
+                seasonEpisode = showEpisode - seasonInfo.first + 1;
+                season = seasonInfo.season;
+            }
         }
+        setSelected({season, seasonEpisode})
         // Get further episode info
         axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${season}/episode/${seasonEpisode}`,
             {

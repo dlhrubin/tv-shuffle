@@ -3,8 +3,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3vh;
-    flex: 1 1;
     
     span {
         font-weight: bold;
@@ -23,5 +21,6 @@
 
     button:disabled {
         color: $dark-gray;
+        cursor: auto;
     }
 }

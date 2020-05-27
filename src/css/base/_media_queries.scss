@@ -1,9 +1,19 @@
+@media only screen and (min-width: 450px) {
+    .app {
+        max-height: 700px;
+        border: 2px solid $highlight;
+        border-radius: 5px;
+    }
+    .results {
+        min-height: 3.5em;
+    }
+}
+
 @media only screen and (min-width: 550px) {
     .search {
         flex: none;
         flex-direction: row;
         justify-content: space-between;
-        margin: 3vh 0;
         width: 450px;
 
         form {
@@ -14,17 +24,6 @@
 
 @media only screen and (min-height: 600px) {
     .preview-image {
-        svg, img {
-            height: 33vh;
-            max-height: 250px;
-        }
-    }
-
-    .results {
-        flex: 1 1;
-    }
-
-    .results p {
-        margin: auto;
+        display: block;
     }
 }

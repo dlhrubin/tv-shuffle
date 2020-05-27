@@ -1,5 +1,8 @@
 .preview-image {
+    display: none;
+    
     svg, img {
-        height: 0;
+        height: 33vh;
+        max-height: 250px;
     }
 }

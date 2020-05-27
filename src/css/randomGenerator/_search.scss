@@ -1,9 +1,7 @@
 .search {
     display: flex;
-    flex: 1 1;
     flex-direction: column;
     justify-content: center;
-    margin: 20px 0;
 
     form {
         display: flex;
@@ -60,7 +58,7 @@
         border: 2px solid $highlight;
         font-size: 0.875em;
         width: 3em;
-        margin-bottom: 0.875em;
+        margin-bottom: 1em;
     }
 
     select:disabled {
