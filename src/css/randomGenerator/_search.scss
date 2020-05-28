@@ -1,81 +1,92 @@
 .search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  form {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    margin: 3px 0;
+  }
+
+  form > div,
+  input {
+    width: 100%;
+  }
+
+  label {
     display: flex;
     flex: 1 1;
-    flex-direction: column;
-    justify-content: center;
-    margin: 20px 0;
+  }
 
-    form {
-        display: flex;
-        align-items: flex-end;
-        position: relative;
-        margin: 5px 0;
-    }
-
-    label {
-        margin-right: 10px;
-        font-weight: bold;
-        margin-bottom: 0.95em;
-    }
-
-    input {
-        -webkit-appearance: none;
-        border: none;
-        border-bottom: 2px solid $highlight;
-        width: 200px;
-        font-family: inherit;
-        padding-right: 25px;
-        flex: 1 1;
-    }
-
-    input:hover, input:focus {
-        background-color: $light-gray;
-    }
-
-    input, select {
-        outline: none;
-    }
-    
-    input, button {
-        font-size: 1em;
-    }
-    
-    button {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        text-align: center;
-        border: none;
-        background: transparent;
-        color: black;
-        padding-left: 0;
-    }
-
-    button:hover {
-        color: $tertiary;
-    }
-
-    select {
-        border: 2px solid $highlight;
-        font-size: 0.875em;
-        width: 3em;
-        margin-bottom: 0.875em;
-    }
-
-}
-
-.search, form > div, .search input {
+  label > div {
     width: 100%;
+  }
+
+  label > span {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  input {
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 2px solid $highlight;
+    width: 200px;
+    font-family: inherit;
+    padding-right: 25px;
+  }
+
+  input,
+  select {
+    outline: none;
+  }
+
+  input,
+  button {
+    font-size: 1em;
+  }
+
+  input:hover,
+  input:focus {
+    background-color: $light-gray;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: black;
+    padding-left: 0;
+  }
+
+  button:hover {
+    color: $tertiary;
+  }
+
+  select {
+    border: 2px solid $highlight;
+    font-size: 0.875em;
+    width: 3em;
+  }
+
+  select:disabled {
+    border-color: $dark-gray;
+  }
 }
 
 .input-container {
-    position: relative;
+  position: relative;
 }
 
 .error {
-    display: block;
-    height: 0.875em;
-    font-size: 0.875em;
-    color: red;
+  display: block;
+  height: 1em;
+  font-size: 0.875em;
+  color: red;
 }
