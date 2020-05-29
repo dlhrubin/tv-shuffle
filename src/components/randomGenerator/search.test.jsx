@@ -25,16 +25,16 @@ describe('Search', () => {
       notFoundCall(getByTestId);
       await waitFor(() => {
         expect(getByTestId('search-bar').value).toEqual('abcd');
-        expect(getByTestId('error-message')).toHaveTextContent('Show title not found');
       });
+      expect(getByTestId('error-message')).toHaveTextContent('Show title not found');
     });
     it('returns an error if no data available for a show', async () => {
       const { getByTestId } = render(<Search />);
       noDataCall(getByTestId);
       await waitFor(() => {
         expect(getByTestId('search-bar').value).toEqual('Days of Our Lives');
-        expect(getByTestId('error-message')).toHaveTextContent('No data available for this title');
       });
+      expect(getByTestId('error-message')).toHaveTextContent('No data available for this title');
     });
   });
   describe('Season dropdown menu', () => {
@@ -43,12 +43,12 @@ describe('Search', () => {
       successfulCall(getByTestId);
       await waitFor(() => {
         expect(getByTestId('dropdown')).toBeEnabled();
-        // Check for option elements
-        expect(container).toContainElement(getByText('All'));
-        for (let i = 1; i <= 9; i++) {
-          expect(container).toContainElement(getByText(i.toString()));
-        }
       });
+      // Check for option elements
+      expect(container).toContainElement(getByText('All'));
+      for (let i = 1; i <= 9; i++) {
+        expect(container).toContainElement(getByText(i.toString()));
+      }
     });
   });
 });

@@ -4,25 +4,25 @@ import PropTypes from 'prop-types';
 const Results = ({ name, season, episode }) => (
   <section id="results" className="results">
     {episode.name && (
-    <p>
+    <p data-testid="results-output">
       Watch season
       {' '}
-      <span>{season}</span>
+      <span data-testid="displayed-season">{season}</span>
       , episode
       {' '}
-      <span>{episode.number}</span>
+      <span data-testid="displayed-episode">{episode.number}</span>
       {episode.name && (
       <>
         {' '}
         (
-        <span>{episode.name}</span>
+        <span data-testid="displayed-name">{episode.name}</span>
         )
       </>
       )}
       {' '}
       of
       {' '}
-      <span>{name}</span>
+      <span data-testid="displayed-show">{name}</span>
     </p>
     )}
   </section>

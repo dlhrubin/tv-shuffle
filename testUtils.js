@@ -7,6 +7,9 @@ import noPosterShowInfo from './__fixtures__/noPosterShowInfo';
 import notFoundSearch from './__fixtures__/notFoundSearch';
 import noDataSearch from './__fixtures__/noDataSearch';
 import noDataShowInfo from './__fixtures__/noDataShowInfo';
+import randomSeason2 from './__fixtures__/randomSeason2';
+import randomSeasonAllSeed1 from './__fixtures__/randomSeasonAllSeed1';
+import randomSeasonAllSeed2 from './__fixtures__/randomSeasonAllSeed2';
 
 jest.mock('axios');
 
@@ -39,4 +42,31 @@ export const noDataCall = (getByTestId) => {
   axiosMock.get.mockResolvedValueOnce(noDataSearch);
   axiosMock.get.mockResolvedValueOnce(noDataShowInfo);
   fireEvent.submit(getByTestId('search-form'));
+};
+
+// Mock season-specific shuffle and API call
+export const randomWithinSeason = (getByTestId) => {
+  // Mock Math.random() to set seed
+  global.Math.random = () => 0.5;
+  fireEvent.change(getByTestId('dropdown'), { target: { value: '2' } });
+  axiosMock.get.mockResolvedValueOnce(randomSeason2);
+  fireEvent.click(getByTestId('shuffle-button'));
+};
+
+// Mock all seasons shuffle and API call (selecting no option)
+export const randomNoSeason = (getByTestId) => {
+  // Mock Math.random() to set seed
+  global.Math.random = () => 0.5;
+  axiosMock.get.mockResolvedValueOnce(randomSeasonAllSeed1);
+  fireEvent.click(getByTestId('shuffle-button'));
+};
+
+// Mock all seasons shuffle and API call (selecting "All" option)
+export const randomAllSeasons = (getByTestId, seed) => {
+  // Mock Math.random() to set seed
+  global.Math.random = () => seed;
+  fireEvent.change(getByTestId('dropdown'), { target: { value: '2' } });
+  fireEvent.change(getByTestId('dropdown'), { target: { value: '0' } });
+  axiosMock.get.mockResolvedValueOnce(seed === 0.5 ? randomSeasonAllSeed1: randomSeasonAllSeed2);
+  fireEvent.click(getByTestId('shuffle-button'));
 };

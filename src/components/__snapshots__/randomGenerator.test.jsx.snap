@@ -82,6 +82,7 @@ exports[`RandomGenerator renders without crashing 1`] = `
     id="preview-image"
   >
     <svg
+      data-testid="default-icon"
       id="Layer_1"
       style="enable-background: new 0 0 512 512;"
       version="1.1"

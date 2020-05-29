@@ -21,12 +21,11 @@ describe('PreviewImage', () => {
     const { queryByTestId, getByTestId } = render(<RandomGenerator />);
     successfulCall(getByTestId);
     await waitFor(() => {
-      const posterImage = queryByTestId('poster-image');
-      expect(posterImage).toBeTruthy();
-      expect(posterImage.src)
-        .toEqual('http://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg');
-      expect(queryByTestId('default-icon')).toBeNull();
+      expect(queryByTestId('poster-image')).toBeTruthy();
     });
+    expect(queryByTestId('poster-image').src)
+      .toEqual('http://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg');
+    expect(queryByTestId('default-icon')).toBeNull();
   });
   it('displays default popcorn icon when search bar returns show with no poster', async () => {
     const { queryByText, queryByTestId, getByTestId } = render(<RandomGenerator />);
@@ -34,12 +33,12 @@ describe('PreviewImage', () => {
     await waitFor(() => {
       expect(queryByTestId('default-icon')).toBeTruthy();
       expect(queryByTestId('poster-image')).toBeNull();
-      // Check that other elements respond to returned result
-      expect(getByTestId('search-bar').value).toEqual('Days of Delight');
-      expect(getByTestId('dropdown')).toBeEnabled();
-      expect(queryByText('All')).toBeTruthy();
-      expect(queryByText('1')).toBeTruthy();
-      expect(getByTestId('shuffle-button')).toBeEnabled();
     });
+    // Check that other elements respond to returned result
+    expect(getByTestId('search-bar').value).toEqual('Days of Delight');
+    expect(getByTestId('dropdown')).toBeEnabled();
+    expect(queryByText('All')).toBeTruthy();
+    expect(queryByText('1')).toBeTruthy();
+    expect(getByTestId('shuffle-button')).toBeEnabled();
   });
 });
