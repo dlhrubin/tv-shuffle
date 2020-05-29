@@ -54,7 +54,7 @@ const Shuffle = ({
   return (
     <section id="shuffle" className="shuffle">
       <span>Shuffle</span>
-      <button type="button" disabled={!id} aria-label="Shuffle" onClick={handleClick}>
+      <button data-testid="shuffle-button" type="button" disabled={!id} aria-label="Shuffle" onClick={handleClick}>
         <i className="fas fa-dice" />
       </button>
     </section>
@@ -62,12 +62,21 @@ const Shuffle = ({
 };
 
 Shuffle.propTypes = {
-  id: PropTypes.number.isRequired,
-  episodeMap: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.number)).isRequired,
-  numEpisodes: PropTypes.number.isRequired,
-  userSeason: PropTypes.number.isRequired,
-  handleSetRandomSeason: PropTypes.func.isRequired,
-  handleSetEpisode: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  episodeMap: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.number)),
+  numEpisodes: PropTypes.number,
+  userSeason: PropTypes.number,
+  handleSetRandomSeason: PropTypes.func,
+  handleSetEpisode: PropTypes.func,
+};
+
+Shuffle.defaultProps = {
+  id: 0,
+  episodeMap: [],
+  numEpisodes: 0,
+  userSeason: 0,
+  handleSetRandomSeason: () => {},
+  handleSetEpisode: () => {},
 };
 
 export default Shuffle;

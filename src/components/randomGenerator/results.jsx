@@ -29,12 +29,21 @@ const Results = ({ name, season, episode }) => (
 );
 
 Results.propTypes = {
-  name: PropTypes.string.isRequired,
-  season: PropTypes.number.isRequired,
+  name: PropTypes.string,
+  season: PropTypes.number,
   episode: PropTypes.shape({
     name: PropTypes.string,
     number: PropTypes.number,
-  }).isRequired,
+  }),
+};
+
+Results.defaultProps = {
+  name: '',
+  season: 0,
+  episode: {
+    name: '',
+    number: 0,
+  },
 };
 
 export default Results;

@@ -99,13 +99,14 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
 
   return (
     <section id="search" className="search">
-      <form onSubmit={handleSearchShow}>
+      <form data-testid="search-form" onSubmit={handleSearchShow}>
         <label htmlFor="find-show">
           <span>Show</span>
           <div>
             <div className="input-container">
               <input
                 id="find-show"
+                data-testid="search-bar"
                 type="search"
                 autoComplete="off"
                 value={query}
@@ -113,7 +114,7 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
               />
               <button type="submit" aria-label="Search"><i className="fas fa-search" /></button>
             </div>
-            <span className="error">{errorMessage}</span>
+            <span data-testid="error-message" className="error">{errorMessage}</span>
           </div>
         </label>
       </form>
@@ -122,6 +123,7 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
           <span>Season (optional)</span>
           <select
             id="select-season"
+            data-testid="dropdown"
             disabled={!seasonOptions.length}
             onChange={(e) => {
               handleSetUserSeason(parseInt(e.target.value, 10));
@@ -139,9 +141,15 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
 };
 
 Search.propTypes = {
-  handleSetShow: PropTypes.func.isRequired,
-  handleSetUserSeason: PropTypes.func.isRequired,
-  handleSetEpisode: PropTypes.func.isRequired,
+  handleSetShow: PropTypes.func,
+  handleSetUserSeason: PropTypes.func,
+  handleSetEpisode: PropTypes.func,
+};
+
+Search.defaultProps = {
+  handleSetShow: () => {},
+  handleSetUserSeason: () => {},
+  handleSetEpisode: () => {},
 };
 
 export default Search;

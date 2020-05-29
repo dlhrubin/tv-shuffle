@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 const PreviewImage = ({ poster, name }) => {
   // SVG from https://www.svgrepo.com/svg/77175/popcorn
   const image = poster
-    ? <img src={poster} alt={`${name} poster`} />
+    ? <img data-testid="poster-image" src={poster} alt={`${name} poster`} />
     : (
       <svg
         version="1.1"
         id="Layer_1"
+        data-testid="default-icon"
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
@@ -69,8 +70,13 @@ const PreviewImage = ({ poster, name }) => {
 };
 
 PreviewImage.propTypes = {
-  poster: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  poster: PropTypes.string,
+  name: PropTypes.string,
+};
+
+PreviewImage.defaultProps = {
+  poster: '',
+  name: '',
 };
 
 export default PreviewImage;
