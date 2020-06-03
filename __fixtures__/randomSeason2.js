@@ -1,5 +1,3 @@
-import config from '../config';
-
 const randomSeason2 = {
   data: {
     air_date: '2007-01-08',
@@ -35,7 +33,7 @@ const randomSeason2 = {
     'cache-control': 'public, max-age=21600', 'content-type': 'application/json;charset=utf-8', etag: 'W/"d11eb5a02bd2116f6ea37e9585df89f2"', 'last-modified': 'Fri, 29 May 2020 19:43:41 GMT',
   },
   config: {
-    url: 'https://api.themoviedb.org/3/tv/1100/season/2/episode/12', method: 'get', params: { api_key: config.KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
+    url: 'https://api.themoviedb.org/3/tv/1100/season/2/episode/12', method: 'get', params: { api_key: process.env.GATSBY_API_KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
   },
   request: {},
 };

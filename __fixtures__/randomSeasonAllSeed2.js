@@ -1,5 +1,3 @@
-import config from '../config';
-
 const randomSeasonAllSeed2 = {
   data: {
     air_date: '2012-11-19',
@@ -29,7 +27,7 @@ const randomSeasonAllSeed2 = {
     'cache-control': 'public, max-age=21600', 'content-type': 'application/json;charset=utf-8', etag: 'W/"00f20888abf2a82ed800f23022b5c448"', 'last-modified': 'Fri, 29 May 2020 22:04:14 GMT',
   },
   config: {
-    url: 'https://api.themoviedb.org/3/tv/1100/season/8/episode/7', method: 'get', params: { api_key: config.KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
+    url: 'https://api.themoviedb.org/3/tv/1100/season/8/episode/7', method: 'get', params: { api_key: process.env.GATSBY_API_KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
   },
   request: {},
 };

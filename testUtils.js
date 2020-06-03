@@ -67,6 +67,6 @@ export const randomAllSeasons = (getByTestId, seed) => {
   global.Math.random = () => seed;
   fireEvent.change(getByTestId('dropdown'), { target: { value: '2' } });
   fireEvent.change(getByTestId('dropdown'), { target: { value: '0' } });
-  axiosMock.get.mockResolvedValueOnce(seed === 0.5 ? randomSeasonAllSeed1: randomSeasonAllSeed2);
+  axiosMock.get.mockResolvedValueOnce(seed === 0.5 ? randomSeasonAllSeed1 : randomSeasonAllSeed2);
   fireEvent.click(getByTestId('shuffle-button'));
 };

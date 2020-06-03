@@ -1,5 +1,3 @@
-import config from '../config';
-
 const noPosterShowInfo = {
   data: {
     backdrop_path: null,
@@ -41,7 +39,7 @@ const noPosterShowInfo = {
     'cache-control': 'public, max-age=3600', 'content-length': '893', 'content-type': 'application/json;charset=utf-8', 'last-modified': 'Fri, 29 May 2020 17:19:26 GMT',
   },
   config: {
-    url: 'https://api.themoviedb.org/3/tv/28366', method: 'get', params: { api_key: config.KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
+    url: 'https://api.themoviedb.org/3/tv/28366', method: 'get', params: { api_key: process.env.GATSBY_API_KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
   },
   request: {},
 };

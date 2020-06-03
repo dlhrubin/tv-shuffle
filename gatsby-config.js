@@ -25,9 +25,9 @@ module.exports = {
         background_color: '#ffffff',
         theme_color: '#ffffff',
         display: 'minimal-ui',
-        icon: 'src/images/dice-logo.png'
+        icon: 'src/images/dice-logo.png',
       },
     },
-    `gatsby-plugin-offline`,
+    'gatsby-plugin-offline',
   ],
 };

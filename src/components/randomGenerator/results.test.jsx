@@ -20,7 +20,7 @@ const shuffle = async (shuffleFunc, getByTestId, queryByTestId, seed) => {
   await waitFor(() => {
     expect(queryByTestId('results-output')).toBeTruthy();
   });
-}
+};
 
 describe('Results', () => {
   it('renders without crashing', () => {
@@ -30,7 +30,7 @@ describe('Results', () => {
   it('is hidden on load', () => {
     const { queryByTestId } = render(<RandomGenerator />);
     expect(queryByTestId('results-output')).toBeFalsy();
-  })
+  });
   it('shuffles episodes and queries API to fetch name of randomly selected episode', async () => {
     const { getByTestId, queryByTestId } = render(<RandomGenerator />);
     await shuffle(randomNoSeason, getByTestId, queryByTestId);

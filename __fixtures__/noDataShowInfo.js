@@ -1,5 +1,3 @@
-import config from '../config';
-
 const noDataShowInfo = {
   data: {
     backdrop_path: '/e7MSbwYRVqd4rZQQWcNuJvOSHLC.jpg',
@@ -69,7 +67,7 @@ const noDataShowInfo = {
     'cache-control': 'public, max-age=3600', 'content-type': 'application/json;charset=utf-8', etag: 'W/"bf5dec3555e65016069f7847164b720a"', 'last-modified': 'Thu, 28 May 2020 20:55:20 GMT',
   },
   config: {
-    url: 'https://api.themoviedb.org/3/tv/881', method: 'get', params: { api_key: config.KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
+    url: 'https://api.themoviedb.org/3/tv/881', method: 'get', params: { api_key: process.env.GATSBY_API_KEY }, headers: { Accept: 'application/json, text/plain, */*' }, transformRequest: [null], transformResponse: [null], timeout: 0, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1,
   },
   request: {},
 };

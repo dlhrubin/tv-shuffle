@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import config from '../../../config';
 
 const getRandom = (total) => Math.floor(Math.random() * total) + 1;
 
@@ -33,7 +32,7 @@ const Shuffle = ({
     axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${season}/episode/${seasonEpisode}`,
       {
         params: {
-          api_key: config.KEY,
+          api_key: process.env.GATSBY_API_KEY,
         },
       }).then((res) => {
       const episodeName = res.data.name || '';

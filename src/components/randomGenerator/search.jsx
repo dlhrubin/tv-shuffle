@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import config from '../../../config';
 
 const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
   const [query, setQuery] = useState('');
@@ -15,7 +14,7 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
       axios.get('https://api.themoviedb.org/3/search/tv?',
         {
           params: {
-            api_key: config.KEY,
+            api_key: process.env.GATSBY_API_KEY,
             query,
           },
         }).then((res) => {
@@ -28,7 +27,7 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
           axios.get(`https://api.themoviedb.org/3/tv/${show.id}`,
             {
               params: {
-                api_key: config.KEY,
+                api_key: process.env.GATSBY_API_KEY,
               },
             }).then((showRes) => {
             // No check for non-zero length results here b/c we're searching by ID number, so we
