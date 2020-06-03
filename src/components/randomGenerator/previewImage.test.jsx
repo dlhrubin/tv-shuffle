@@ -24,7 +24,7 @@ describe('PreviewImage', () => {
       expect(queryByTestId('poster-image')).toBeTruthy();
     });
     expect(queryByTestId('poster-image').src)
-      .toEqual('http://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg');
+      .toEqual('https://image.tmdb.org/t/p/w500/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg');
     expect(queryByTestId('default-icon')).toBeNull();
   });
   it('displays default popcorn icon when search bar returns show with no poster', async () => {

@@ -64,7 +64,7 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
                   id: show.id,
                   // Catch if a show doesn't have a poster
                   poster: ('poster_path' in show && show.poster_path)
-                    ? `http://image.tmdb.org/t/p/w500${show.poster_path}` : '',
+                    ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : '',
                   numEpisodes: showInfo.number_of_episodes,
                   episodeMap,
                 });
