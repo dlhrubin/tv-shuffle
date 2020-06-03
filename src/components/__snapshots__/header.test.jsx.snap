@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders without crashing 1`] = `
+<DocumentFragment>
+  <header>
+    <div>
+      <h1
+        style="margin: 0px;"
+      >
+        <a
+          href="/"
+        />
+      </h1>
+    </div>
+  </header>
+</DocumentFragment>
+`;

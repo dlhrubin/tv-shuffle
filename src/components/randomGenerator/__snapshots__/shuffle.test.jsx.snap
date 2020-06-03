@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shuffle renders without crashing 1`] = `
+<DocumentFragment>
+  <section
+    class="shuffle"
+    id="shuffle"
+  >
+    <span>
+      Shuffle
+    </span>
+    <button
+      aria-label="Shuffle"
+      data-testid="shuffle-button"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="fas fa-dice"
+      />
+    </button>
+  </section>
+</DocumentFragment>
+`;

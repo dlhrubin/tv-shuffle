@@ -1,0 +1,6 @@
+html.jsx
+loadershim.js
+jest-preprocess.js
+__mocks__/*
+public/*
+**/*.test.jsx

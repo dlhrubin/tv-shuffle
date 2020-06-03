@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search renders without crashing 1`] = `
+<DocumentFragment>
+  <section
+    class="search"
+    id="search"
+  >
+    <form
+      data-testid="search-form"
+    >
+      <label
+        for="find-show"
+      >
+        <span>
+          Show
+        </span>
+        <div>
+          <div
+            class="input-container"
+          >
+            <input
+              autocomplete="off"
+              data-testid="search-bar"
+              id="find-show"
+              type="search"
+              value=""
+            />
+            <button
+              aria-label="Search"
+              type="submit"
+            >
+              <i
+                class="fas fa-search"
+              />
+            </button>
+          </div>
+          <span
+            class="error"
+            data-testid="error-message"
+          />
+        </div>
+      </label>
+    </form>
+    <form>
+      <label
+        for="select-season"
+      >
+        <span>
+          Season (optional)
+        </span>
+        <select
+          data-testid="dropdown"
+          disabled=""
+          id="select-season"
+        >
+          00
+        </select>
+      </label>
+    </form>
+  </section>
+</DocumentFragment>
+`;
