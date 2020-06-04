@@ -10,6 +10,8 @@ TV Shuffle selects random episodes of TV shows to watch.
 * Search for a TV show (if available, the show's poster will be also displayed)
 * Optionally, choose a specific season from which to select the random episode
 * Click the shuffle button to randomly select an episode to watch (dislays episode number and name)
+* Progressive Web App
+* Deployed with AWS Amplify
 * Coming soon: user authentication and ability to track which episodes you've watched
 
 ## Running
