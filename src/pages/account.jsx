@@ -6,7 +6,6 @@ import SEO from '../components/seo';
 const AccountPage = () => {
   if (!isAuthenticated()) {
     login();
-    return <p>Redirecting to login...</p>;
   }
 
   const user = getProfile();
@@ -14,11 +13,16 @@ const AccountPage = () => {
   return (
     <Layout>
       <SEO title="Account" />
-      <p>
-        Hello,
-        {user.name}
-        !
-      </p>
+      {!isAuthenticated()
+        ? <p style={{ fontSize: '1.25em', fontWeight: 'bold' }}>Redirecting to login...</p>
+        : (
+          <p>
+            Hello,
+            {' '}
+            {user.given_name ? user.given_name : user.nickname}
+            !
+          </p>
+        )}
     </Layout>
   );
 };

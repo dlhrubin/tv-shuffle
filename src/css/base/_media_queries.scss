@@ -9,20 +9,11 @@
     flex: none;
     flex-direction: row;
     justify-content: space-between;
-    width: 450px;
+    width: 475px;
 
     form {
       margin: 0.875em 0 0 0;
     }
-  }
-}
-
-@media only screen and (min-width: 700px) {
-  .app {
-    border: 2px solid $highlight;
-    border-top: none;
-    border-bottom: none;
-    border-radius: 5px;
   }
 }
 
