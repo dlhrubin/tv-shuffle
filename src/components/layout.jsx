@@ -7,7 +7,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
+import { logout, getProfile } from '../utils/auth';
+
 import '../css/layout.scss';
 import Header from './header';
 
@@ -22,9 +24,22 @@ const Layout = ({ children }) => {
     }
   `);
 
+  const user = getProfile();
+
   return (
     <div className="app">
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <nav>
+        <Header siteTitle={data.site.siteMetadata.title} />
+        <div>
+          {user.name && <Link to="/tracker/">Tracker</Link>}
+          <Link to="/account/" className={user.name ? 'avatar' : ''}>
+            {user.name ? (user.given_name || user.nickname)[0].toUpperCase() : 'Log in'}
+            {' '}
+          </Link>
+          {user.name
+          && (<a href="#logout" onClick={(e) => { logout(); e.preventDefault(); }}> Log Out </a>)}
+        </div>
+      </nav>
       <main>{children}</main>
       <footer>
         ©
