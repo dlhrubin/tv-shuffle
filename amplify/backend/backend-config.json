@@ -1,0 +1,23 @@
+{
+	"api": {
+		"episodetracker": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "OPENID_CONNECT",
+						"openIDConnectConfig": {
+							"name": "Auth0",
+							"issuerUrl": "https://tv-shuffle.us.auth0.com/",
+							"clientId": "1BDFqOyLCfYLaOP46KIcucxeJ5m7kOlo",
+							"iatTTL": "0",
+							"authTTL": "0"
+						}
+					}
+				}
+			}
+		}
+	}
+}

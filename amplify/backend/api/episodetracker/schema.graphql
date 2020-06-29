@@ -1,0 +1,16 @@
+type Episode {
+  name: String!
+  season: Int!
+  number: Int!
+  watched: Boolean!
+}
+
+type Show {
+  name: String!
+  episodes: [Episode!]!
+}
+
+type User @model {
+  id: ID!
+  shows: [Show!]
+}
