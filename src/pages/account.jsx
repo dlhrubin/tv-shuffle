@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { login, isAuthenticated, getProfile } from '../utils/auth';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -12,16 +12,12 @@ const AccountPage = () => {
     if (!isAuthenticated()) {
       login();
     }
-    // Set user profile info and fetch from episode tracker API
+    // Set user profile info
     if (!userStatus.user) {
       const userInfo = getProfile();
       userStatus.changeUser(userInfo);
-      const token = userInfo.sub;
-      
     }
   })
-
-
 
   return (
     <context.Consumer>

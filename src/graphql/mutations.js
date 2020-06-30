@@ -14,7 +14,6 @@ export const createUser = /* GraphQL */ `
           name
           season
           number
-          watched
         }
       }
       createdAt
@@ -35,7 +34,6 @@ export const updateUser = /* GraphQL */ `
           name
           season
           number
-          watched
         }
       }
       createdAt
@@ -56,7 +54,6 @@ export const deleteUser = /* GraphQL */ `
           name
           season
           number
-          watched
         }
       }
       createdAt

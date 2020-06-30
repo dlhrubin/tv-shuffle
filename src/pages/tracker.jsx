@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import EpisodeTracker from '../components/episodeTracker';
 
 const TrackerPage = () => (
   <Layout>
-    <SEO title="Account" />
-    <p>Episode tracker</p>
+    <SEO title="Episode Tracker" />
+    <EpisodeTracker />
   </Layout>
 );
 

@@ -11,7 +11,6 @@ export const getUser = /* GraphQL */ `
           name
           season
           number
-          watched
         }
       }
       createdAt
