@@ -51,6 +51,8 @@ const setSession = (cb = () => {}) => (err, authResult) => {
     tokens.expiresAt = expiresAt;
     user = authResult.idTokenPayload;
     localStorage.setItem('isLoggedIn', true);
+    // Adding to boilerplate to set ID token in local storage
+    localStorage.setItem('idToken', authResult.idToken)
     navigate('/');
     cb();
   }

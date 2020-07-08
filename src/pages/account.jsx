@@ -6,16 +6,9 @@ import { context } from '../components/provider';
 
 const AccountPage = () => {
 
-  const userStatus = useContext(context);
-
   useEffect(() => {
     if (!isAuthenticated()) {
       login();
-    }
-    // Set user profile info
-    if (!userStatus.user) {
-      const userInfo = getProfile();
-      userStatus.changeUser(userInfo);
     }
   })
 
