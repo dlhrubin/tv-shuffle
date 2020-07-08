@@ -12,24 +12,22 @@ const AccountPage = () => {
     }
   })
 
+  const user = getProfile();
+
   return (
-    <context.Consumer>
-      {context => (
-      <Layout>
-        <SEO title="Account" />
-        {!isAuthenticated()
-          ? <p style={{ fontSize: '1.25em', fontWeight: 'bold' }}>Redirecting to login...</p>
-          : (
-            <p>
-              Hello,
-              {' '}
-              {context.user?.given_name ? context.user?.given_name : context.user?.nickname}
-              !
-            </p>
-          )}
-      </Layout>
-      )}
-    </context.Consumer>
+    <Layout>
+      <SEO title="Account" />
+      {!isAuthenticated()
+        ? <p style={{ fontSize: '1.25em', fontWeight: 'bold' }}>Redirecting to login...</p>
+        : (
+          <p>
+            Hello,
+            {' '}
+            {user?.given_name ? user?.given_name : user?.nickname}
+            !
+          </p>
+        )}
+    </Layout>
   );
 };
 

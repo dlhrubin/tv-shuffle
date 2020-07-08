@@ -15,11 +15,6 @@ const IndexPage = () => {
   useEffect(() => {
     const user = getProfile();
     if (user.name) {
-      // Set user profile info
-      if (!userStatus.user) {
-        const userInfo = getProfile();
-        userStatus.changeUser(userInfo);
-      }
       // Fetch user information
       if (!userStatus.userShows) {
         axios.post("https://c7lttj6vt5hzppnvkrbmxz24ri.appsync-api.us-east-1.amazonaws.com/graphql",
