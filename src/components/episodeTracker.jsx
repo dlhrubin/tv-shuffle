@@ -7,9 +7,13 @@ const EpisodeTracker = () => {
 
   return (
     <section id="episode-tracker">
-      {userStatus.userShows.length ? <h2>Episode Tracker</h2> 
-      : <p>You're not tracking any shows yet! To start tracking episodes of shows as you watch, 
-           click the "Mark as watched?" button after shuffling.</p>}
+      {userStatus.userShows.length ? <h2>Episode Tracker</h2>
+        : (
+          <p>
+            You're not tracking any shows yet! To start tracking episodes of shows as you watch,
+            click the "Mark as watched?" button after shuffling.
+          </p>
+        )}
     </section>
   );
 };

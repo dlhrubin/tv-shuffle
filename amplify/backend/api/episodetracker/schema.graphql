@@ -11,5 +11,5 @@ type Show {
 
 type User @model {
   id: ID!
-  shows: [Show!]
+  shows: [Show!]!
 }
