@@ -1,3 +1,6 @@
+# Pre-test script with dotenv declarations
+preTest.js
+
 # Logs
 logs
 *.log
