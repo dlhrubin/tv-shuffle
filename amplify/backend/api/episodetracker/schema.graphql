@@ -1,11 +1,12 @@
 type Episode {
   name: String!
-  season: Int!
   number: Int!
+  season: Int!
 }
 
 type Show {
   name: String!
+  tmdb: Int!
   episodes: [Episode!]!
 }
 

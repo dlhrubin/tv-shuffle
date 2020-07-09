@@ -7,10 +7,11 @@ export const onCreateUser = /* GraphQL */ `
       id
       shows {
         name
+        tmdb
         episodes {
           name
-          season
           number
+          season
         }
       }
       createdAt
@@ -24,10 +25,11 @@ export const onUpdateUser = /* GraphQL */ `
       id
       shows {
         name
+        tmdb
         episodes {
           name
-          season
           number
+          season
         }
       }
       createdAt
@@ -41,10 +43,11 @@ export const onDeleteUser = /* GraphQL */ `
       id
       shows {
         name
+        tmdb
         episodes {
           name
-          season
           number
+          season
         }
       }
       createdAt

@@ -4,14 +4,14 @@ export const context = React.createContext();
 
 const Provider = ({ children }) => {
   const [userShows, setUserShows] = useState(null);
-  const [newEpisode, setNewEpisode] = useState(null);
+  const [showInfo, setShowInfo] = useState(null);
 
   return (
     <context.Provider value={{
       userShows,
       changeUserShows: (shows) => setUserShows(shows),
-      newEpisode,
-      addNewEpisode: (episode) => setNewEpisode(episode),
+      showInfo,
+      changeShowInfo: (info) => setShowInfo(info),
     }}
     >
       {children}

@@ -41,7 +41,7 @@ const RandomGenerator = () => {
       <PreviewImage poster={show.poster} name={show.name} />
       <Results name={show.name} season={userSeason || randomSeason} episode={episode} />
       {user.name
-        && <SaveEpisode name={show.name} season={userSeason || randomSeason} episode={episode} />}
+        && <SaveEpisode name={show.name} id={show.id} season={userSeason || randomSeason} episode={episode} />}
     </>
   );
 };

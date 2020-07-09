@@ -7,10 +7,11 @@ export const getUser = /* GraphQL */ `
       id
       shows {
         name
+        tmdb
         episodes {
           name
-          season
           number
+          season
         }
       }
       createdAt
@@ -29,6 +30,7 @@ export const listUsers = /* GraphQL */ `
         id
         shows {
           name
+          tmdb
         }
         createdAt
         updatedAt

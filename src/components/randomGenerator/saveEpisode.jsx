@@ -6,7 +6,7 @@ import { getProfile } from '../../utils/auth';
 import { createUser, updateUser } from '../../graphql/mutations';
 import awsmobile from '../../aws-exports';
 
-const SaveEpisode = ({ name, season, episode }) => {
+const SaveEpisode = ({ name, id, season, episode }) => {
   const [watched, setWatched] = useState(false);
   const [storedEpisode, setStoredEpisode] = useState(episode);
   const [storedSeason, setStoredSeason] = useState(season);
@@ -25,11 +25,11 @@ const SaveEpisode = ({ name, season, episode }) => {
         setStoredEpisode(episode);
         setStoredSeason(season);
         // Check if new episode has already been watched
-        const show = userStatus.userShows.filter((s) => s.name === name)[0];
+        const show = userStatus.userShows.filter((s) => s.tmdb === id)[0];
         const alreadyWatched = !show ? false
           : !!show.episodes.filter((e) => e.name === episode.name
-                                                                   && e.number === episode.number
-                                                                   && e.season === season)[0];
+                                       && e.number === episode.number
+                                       && e.season === season)[0];
         setWatched(alreadyWatched);
       }
     }
@@ -43,14 +43,15 @@ const SaveEpisode = ({ name, season, episode }) => {
       season,
     };
     let showArray = [...userStatus.userShows];
-    const show = showArray.filter((s) => s.name === name)[0];
+    const show = showArray.filter((s) => s.tmdb === id)[0];
     if (show) {
       show.episodes.push(newEpisode);
-      showArray = showArray.filter((s) => s.name !== name);
+      showArray = showArray.filter((s) => s.tmdb !== id);
       showArray.push(show);
     } else {
       showArray.push({
         name,
+        tmdb: id,
         episodes: [newEpisode],
       });
     }
@@ -82,6 +83,7 @@ const SaveEpisode = ({ name, season, episode }) => {
 
 SaveEpisode.propTypes = {
   name: PropTypes.string,
+  id: PropTypes.number,
   season: PropTypes.number,
   episode: PropTypes.shape({
     name: PropTypes.string,
@@ -91,6 +93,7 @@ SaveEpisode.propTypes = {
 
 SaveEpisode.defaultProps = {
   name: '',
+  id: 0,
   season: 0,
   episode: {
     name: '',
