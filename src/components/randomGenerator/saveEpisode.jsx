@@ -6,7 +6,9 @@ import { getProfile } from '../../utils/auth';
 import { createUser, updateUser } from '../../graphql/mutations';
 import awsmobile from '../../aws-exports';
 
-const SaveEpisode = ({ name, id, season, episode }) => {
+const SaveEpisode = ({
+  name, id, season, episode,
+}) => {
   const [watched, setWatched] = useState(false);
   const [storedEpisode, setStoredEpisode] = useState(episode);
   const [storedSeason, setStoredSeason] = useState(season);
