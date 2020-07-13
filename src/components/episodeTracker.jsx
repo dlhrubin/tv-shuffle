@@ -30,17 +30,16 @@ const EpisodeTracker = () => {
             const showGrid = {
               name: res.data.name, 
               seasonCount: res.data.number_of_seasons, 
-              episodesPerSeason: seasons.map(s => (
-                {season: s.season_number, episodeCount: s.episode_count})), 
               episodeStatus: []
             };
             showGrid.maxEpisodeCount = Math.max(...seasons.map(s => s.episode_count));
             seasons.forEach(s => 
               showGrid.episodeStatus.push(...
-                [...Array(s.episode_count).keys()]
+                [...Array(showGrid.maxEpisodeCount).keys()]
                 .map(num => ({
                   "season" : s.season_number,
                   "episode": num + 1,
+                  "exists": num <= s.episode_count,
                   "watched": !!userStatus.userShows
                             .filter(show => show.name === res.data.name)[0].episodes
                             .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0]
@@ -73,7 +72,7 @@ const EpisodeTracker = () => {
                       .domain([0, data.seasonCount])
                       .range([margin.top, h - margin.bottom])
 
-      const squareType = (watched) => watched ? "watched" : "unwatched";
+      const squareType = (exists, watched) => watched ? "watched" : exists ? "unwatched" : "empty";
 
       const container = gridContainer.current;
       select(container)
@@ -90,13 +89,11 @@ const EpisodeTracker = () => {
         .append("rect")
         .attr("x", (d) => xScale(d.episode))
         .attr("y", (d) => yScale(d.season))
-        .attr("class", (d) => squareType(d.watched))
+        .attr("class", (d) => squareType(d.exists, d.watched))
         .attr("width", squareSize)
         .attr("height", squareSize)
         .attr("stroke", "#ffffff");
 
-      // Add grey squares for empty episodes
-      //const emptySquares = data.episodeStatus
     })
   }
 

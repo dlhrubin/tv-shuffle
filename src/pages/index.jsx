@@ -30,7 +30,7 @@ const IndexPage = () => {
         })
       }
     }
-  })
+  }, [userStatus.userShows])
 
   return (
     <Layout>
