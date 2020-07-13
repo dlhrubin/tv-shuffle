@@ -4,14 +4,14 @@ export const context = React.createContext();
 
 const Provider = ({ children }) => {
   const [userShows, setUserShows] = useState(null);
-  const [showInfo, setShowInfo] = useState(null);
+  const [gridData, setGridData] = useState(null);
 
   return (
     <context.Provider value={{
       userShows,
       changeUserShows: (shows) => setUserShows(shows),
-      showInfo,
-      changeShowInfo: (info) => setShowInfo(info),
+      gridData,
+      changeGridData: (grids) => setGridData(grids),
     }}
     >
       {children}

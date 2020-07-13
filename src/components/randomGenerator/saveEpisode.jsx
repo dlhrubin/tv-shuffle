@@ -10,32 +10,22 @@ const SaveEpisode = ({
   name, id, season, episode,
 }) => {
   const [watched, setWatched] = useState(false);
-  const [storedEpisode, setStoredEpisode] = useState(episode);
-  const [storedSeason, setStoredSeason] = useState(season);
 
   const userStatus = useContext(context);
   const user = getProfile();
 
   useEffect(() => {
     if (userStatus.userShows) {
-      // Reset "Mark watched" button if user re-shuffles
-      const mustReset = !episode.name
-                            || episode.name !== storedEpisode.name
-                            || episode.number !== storedEpisode.number
-                            || season !== storedSeason;
-      if (mustReset) {
-        setStoredEpisode(episode);
-        setStoredSeason(season);
-        // Check if new episode has already been watched
-        const show = userStatus.userShows.filter((s) => s.tmdb === id)[0];
-        const alreadyWatched = !show ? false
-          : !!show.episodes.filter((e) => e.name === episode.name
+      // Check if new episode has already been watched
+      const show = userStatus.userShows.filter((s) => s.tmdb === id)[0];
+      const alreadyWatched = !show ? false
+        : !!show.episodes.filter((e) => e.name === episode.name
                                        && e.number === episode.number
                                        && e.season === season)[0];
-        setWatched(alreadyWatched);
-      }
+        // Reset "Mark watched" button if user re-shuffles
+      setWatched(alreadyWatched);
     }
-  });
+  }, [episode.name, episode.number, season]);
 
   const handleAddEpisode = () => {
     // Update user's shows to add new episode

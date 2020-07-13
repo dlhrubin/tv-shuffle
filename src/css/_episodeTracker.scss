@@ -1,0 +1,19 @@
+.episode-tracker {
+  height: 100%;
+
+  h2 {
+    text-align: center;
+  }
+
+  svg {
+    outline: 1px solid;
+  }
+}
+
+.watched {
+  fill: #80bfff;
+}
+
+.unwatched {
+  fill: #cce6ff;
+}

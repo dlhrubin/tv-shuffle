@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { context } from './provider';
-import { getProfile } from '../utils/auth';
 import axios from 'axios';
+import { scaleLinear, select, selectAll } from 'd3';
 
 const EpisodeTracker = () => {
+  const gridContainer = useRef(null);
   const userStatus = useContext(context);
 
   useEffect(() => {
-    if (!userStatus.showInfo && userStatus.userShows?.length) {
+    if (!userStatus.gridData && userStatus.userShows?.length) {
       let requests = []
       userStatus.userShows.forEach(show => {
         requests.push(
@@ -19,38 +20,88 @@ const EpisodeTracker = () => {
           },
         }));
       });
-      axios.all(requests).then(axios.spread((...responses) => {
+      axios.all(requests).then(responses => {
         const gridData = []
         responses.forEach(res => {
           const seasons = res.data.seasons.filter((s) => s.season_number !== 0);
           const missingSeasons = seasons.length !== seasons.slice(-1)[0].season_number;
           // Include in vis only if there is no missing data
           if (res.data.number_of_episodes && !missingSeasons) {
-            const showGrid = {name: res.data.name};
-            seasons.forEach(s => {
-              console.log()
-            })
-            showGrid.data = seasons.map(s => 
-              ({"season" : s.season_number, 
-                "episodes": [...Array(s.episode_count).keys()]
+            const showGrid = {
+              name: res.data.name, 
+              seasonCount: res.data.number_of_seasons, 
+              episodesPerSeason: seasons.map(s => (
+                {season: s.season_number, episodeCount: s.episode_count})), 
+              episodeStatus: []
+            };
+            showGrid.maxEpisodeCount = Math.max(...seasons.map(s => s.episode_count));
+            seasons.forEach(s => 
+              showGrid.episodeStatus.push(...
+                [...Array(s.episode_count).keys()]
                 .map(num => ({
-                  "number": num + 1,
+                  "season" : s.season_number,
+                  "episode": num + 1,
                   "watched": !!userStatus.userShows
                             .filter(show => show.name === res.data.name)[0].episodes
                             .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0]
                 }
-              ))}));
+              )))
+            );
             gridData.push(showGrid)
           }
-          
         })
-        userStatus.changeShowInfo(gridData);
-      }))
+        userStatus.changeGridData(gridData);
+        drawGrid(gridData);
+      })
+    } else if (userStatus.userShows?.length) {
+      drawGrid(userStatus.gridData);
     }
-  })
+  }, [userStatus.userShows])
+
+  const drawGrid = (gridData) => {
+    gridData.forEach((data) => {
+      const margin = {top: 30, right: 50, bottom: 50, left: 30};
+      const squareSize = 20;
+      const w = data.maxEpisodeCount * squareSize + margin.left + margin.right;
+      const h = data.seasonCount * squareSize + margin.top + margin.bottom;
+      
+      const xScale = scaleLinear()
+                      .domain([0, data.maxEpisodeCount])
+                      .range([margin.left, w - margin.right]);
+      
+      const yScale = scaleLinear()
+                      .domain([0, data.seasonCount])
+                      .range([margin.top, h - margin.bottom])
+
+      const squareType = (watched) => watched ? "watched" : "unwatched";
+
+      const container = gridContainer.current;
+      select(container)
+        .style("width", w + "px")
+        .style("height", h + "px")
+      
+      const svg = select(container).append("svg")
+                    .attr("width", w)
+                    .attr("height", h)
+      
+      svg.selectAll("rect")
+        .data(data.episodeStatus)
+        .enter()
+        .append("rect")
+        .attr("x", (d) => xScale(d.episode))
+        .attr("y", (d) => yScale(d.season))
+        .attr("class", (d) => squareType(d.watched))
+        .attr("width", squareSize)
+        .attr("height", squareSize)
+        .attr("stroke", "#ffffff");
+
+      // Add grey squares for empty episodes
+      //const emptySquares = data.episodeStatus
+    })
+  }
 
   return (
-    <section id="episode-tracker">
+    <section id="episode-tracker" className="episode-tracker">
       {userStatus.userShows?.length ? <h2>Episode Tracker</h2>
         : (
           <p>
@@ -58,6 +109,7 @@ const EpisodeTracker = () => {
             click the "Mark as watched?" button after shuffling.
           </p>
         )}
+      {(userStatus.userShows?.length && userStatus.gridData) && <div ref={gridContainer}></div> }
     </section>
   );
 };
