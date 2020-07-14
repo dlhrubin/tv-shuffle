@@ -26,7 +26,9 @@ const IndexPage = () => {
           {headers: {
           'Authorization': window.localStorage.getItem('idToken')}
         }).then(res => {
-          userStatus.changeUserShows(res.data.data.getUser?.shows || []);
+          const shows = res.data.data.getUser?.shows;
+          userStatus.changeUserShows(shows || []);
+          userStatus.changeGridsToUpdate(shows ? shows.map(s => s.tmdb) : []);
         })
       }
     }

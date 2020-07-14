@@ -62,6 +62,9 @@ const SaveEpisode = ({
       },
       { headers: { Authorization: window.localStorage.getItem('idToken') } });
     userStatus.changeUserShows(showArray);
+    if (!userStatus.gridsToUpdate.includes(id)) {
+      userStatus.changeGridsToUpdate(userStatus.gridsToUpdate.concat(id));
+    }
     setWatched(true);
   };
 

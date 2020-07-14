@@ -8,52 +8,59 @@ const EpisodeTracker = () => {
   const userStatus = useContext(context);
 
   useEffect(() => {
-    if (!userStatus.gridData && userStatus.userShows?.length) {
-      let requests = []
-      userStatus.userShows.forEach(show => {
-        requests.push(
-        // Fetch fresh show info to get updated number of seasons and episodes
-        axios.get(`https://api.themoviedb.org/3/tv/${show.tmdb}`,
-        {
-          params: {
-            api_key: process.env.GATSBY_API_KEY,
-          },
-        }));
-      });
-      axios.all(requests).then(responses => {
-        const gridData = []
-        responses.forEach(res => {
-          const seasons = res.data.seasons.filter((s) => s.season_number !== 0);
-          const missingSeasons = seasons.length !== seasons.slice(-1)[0].season_number;
-          // Include in vis only if there is no missing data
-          if (res.data.number_of_episodes && !missingSeasons) {
-            const showGrid = {
-              name: res.data.name, 
-              seasonCount: res.data.number_of_seasons, 
-              episodeStatus: []
-            };
-            showGrid.maxEpisodeCount = Math.max(...seasons.map(s => s.episode_count));
-            seasons.forEach(s => 
-              showGrid.episodeStatus.push(...
-                [...Array(showGrid.maxEpisodeCount).keys()]
-                .map(num => ({
-                  "season" : s.season_number,
-                  "episode": num + 1,
-                  "exists": num <= s.episode_count,
-                  "watched": !!userStatus.userShows
-                            .filter(show => show.name === res.data.name)[0].episodes
-                            .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0]
-                }
-              )))
-            );
-            gridData.push(showGrid)
-          }
+    if (userStatus.userShows?.length) {
+      if (userStatus.gridsToUpdate.length) {
+        let requests = []
+        userStatus.gridsToUpdate.forEach(tmdb => {
+          requests.push(
+          // Fetch fresh show info to get updated number of seasons and episodes
+          axios.get(`https://api.themoviedb.org/3/tv/${tmdb}`,
+          {
+            params: {
+              api_key: process.env.GATSBY_API_KEY,
+            },
+          }));
+        });
+        axios.all(requests).then(responses => {
+          const updatedGrids = []
+          responses.forEach(res => {
+            const seasons = res.data.seasons.filter((s) => s.season_number !== 0);
+            const missingSeasons = seasons.length !== seasons.slice(-1)[0].season_number;
+            // Include in vis only if there is no missing data
+            if (res.data.number_of_episodes && !missingSeasons) {
+              const showGrid = {
+                id: res.data.id,
+                name: res.data.name, 
+                seasonCount: res.data.number_of_seasons, 
+                episodeStatus: []
+              };
+              showGrid.maxEpisodeCount = Math.max(...seasons.map(s => s.episode_count));
+              seasons.forEach(s => 
+                showGrid.episodeStatus.push(...
+                  [...Array(showGrid.maxEpisodeCount).keys()]
+                  .map(num => ({
+                    "season" : s.season_number,
+                    "episode": num + 1,
+                    "exists": num <= s.episode_count,
+                    "watched": !!userStatus.userShows
+                              .filter(show => show.name === res.data.name)[0].episodes
+                              .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0]
+                  }
+                )))
+              );
+              updatedGrids.push(showGrid)
+            }
+          })
+          // Combine updated grids with grids that were not updated
+          const notUpdated = userStatus.gridData.filter(grid => !userStatus.gridsToUpdate.includes(grid.id));
+          const gridData = [...updatedGrids, ...notUpdated];
+          userStatus.changeGridData(gridData);
+          userStatus.changeGridsToUpdate([]);
+          drawGrid(gridData);
         })
-        userStatus.changeGridData(gridData);
-        drawGrid(gridData);
-      })
-    } else if (userStatus.userShows?.length) {
-      drawGrid(userStatus.gridData);
+      } else {
+        drawGrid(userStatus.gridData);
+      }
     }
   }, [userStatus.userShows])
 
@@ -139,7 +146,7 @@ const EpisodeTracker = () => {
             click the "Mark as watched?" button after shuffling.
           </p>
         )}
-      {(userStatus.userShows?.length && userStatus.gridData) && <div ref={gridContainer}></div> }
+      {(userStatus.userShows?.length && userStatus.gridData.length) && <div ref={gridContainer}></div> }
     </section>
   );
 };
