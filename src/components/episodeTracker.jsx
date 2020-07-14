@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { context } from './provider';
 import axios from 'axios';
-import { scaleLinear, select, selectAll } from 'd3';
+import { scaleLinear, select, selectAll, axisBottom, axisLeft } from 'd3';
 
 const EpisodeTracker = () => {
   const gridContainer = useRef(null);
@@ -59,21 +59,23 @@ const EpisodeTracker = () => {
 
   const drawGrid = (gridData) => {
     gridData.forEach((data) => {
-      const margin = {top: 30, right: 50, bottom: 50, left: 30};
-      const squareSize = 20;
-      const w = data.maxEpisodeCount * squareSize + margin.left + margin.right;
-      const h = data.seasonCount * squareSize + margin.top + margin.bottom;
       
+      // Define constants
+      const margin = {top: 30, right: 50, bottom: 50, left: 80};
+      const squareSize = 20;
+      const w = (data.maxEpisodeCount - 1) * squareSize + margin.left + margin.right;
+      const h = (data.seasonCount - 1) * squareSize + margin.top + margin.bottom;
+      
+      // Set up axes
       const xScale = scaleLinear()
-                      .domain([0, data.maxEpisodeCount])
+                      .domain([1, data.maxEpisodeCount])
                       .range([margin.left, w - margin.right]);
       
       const yScale = scaleLinear()
-                      .domain([0, data.seasonCount])
+                      .domain([1, data.seasonCount])
                       .range([margin.top, h - margin.bottom])
 
-      const squareType = (exists, watched) => watched ? "watched" : exists ? "unwatched" : "empty";
-
+      // Set up container
       const container = gridContainer.current;
       select(container)
         .style("width", w + "px")
@@ -83,16 +85,47 @@ const EpisodeTracker = () => {
                     .attr("width", w)
                     .attr("height", h)
       
+      // Add squares
       svg.selectAll("rect")
         .data(data.episodeStatus)
         .enter()
         .append("rect")
         .attr("x", (d) => xScale(d.episode))
         .attr("y", (d) => yScale(d.season))
-        .attr("class", (d) => squareType(d.exists, d.watched))
+        .attr("class", (d) => d.watched ? "watched" : d.exists ? "unwatched" : "empty")
         .attr("width", squareSize)
         .attr("height", squareSize)
         .attr("stroke", "#ffffff");
+
+      
+      // Add axes
+      const xAxis = axisBottom(xScale)
+                      .ticks(data.maxEpisodeCount)
+                      .tickSize(0);
+
+      svg.append("g")
+         .attr("transform", 
+               "translate(" + squareSize / 2 + "," + yScale(data.seasonCount + 1) + ")")
+         .call(xAxis)
+         .select('.domain').remove();
+
+      const yAxis = axisLeft(yScale)
+                      .ticks(data.seasonCount)
+                      .tickFormat(x => "Season " + x)
+                      .tickSize(0);
+
+      svg.append("g")
+         .attr("transform", "translate(" + xScale(1) + "," + squareSize / 2 + ")")
+         .call(yAxis)
+         .select('.domain').remove();
+
+      // Add title
+      svg.append("text")
+         .attr("x", w / 2)
+         .attr("y", margin.top / 2)
+         .attr("text-anchor", "middle")
+         .attr("dominant-baseline", "middle")
+         .text(data.name)
 
     })
   }
