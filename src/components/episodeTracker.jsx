@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { context } from './provider';
 import axios from 'axios';
 import { scaleLinear, select, selectAll, axisBottom, axisLeft } from 'd3';
@@ -6,6 +6,7 @@ import { scaleLinear, select, selectAll, axisBottom, axisLeft } from 'd3';
 const EpisodeTracker = () => {
   const gridContainer = useRef(null);
   const userStatus = useContext(context);
+  const [selectedShow, setSelectedShow] = useState(userStatus.gridData[0]?.id);
 
   useEffect(() => {
     if (userStatus.userShows?.length) {
@@ -52,10 +53,14 @@ const EpisodeTracker = () => {
             }
           })
           // Combine updated grids with grids that were not updated
-          const notUpdated = userStatus.gridData.filter(grid => !userStatus.gridsToUpdate.includes(grid.id));
+          const notUpdated = userStatus.gridData
+                              .filter(grid => !userStatus.gridsToUpdate.includes(grid.id));
           const gridData = [...updatedGrids, ...notUpdated];
+          // Sort grids alphabetically by name of show
+          gridData.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0)
           userStatus.changeGridData(gridData);
           userStatus.changeGridsToUpdate([]);
+          setSelectedShow(gridData[0].id)
           drawGrid(gridData);
         })
       } else {
@@ -84,13 +89,10 @@ const EpisodeTracker = () => {
 
       // Set up container
       const container = gridContainer.current;
-      select(container)
-        .style("width", w + "px")
-        .style("height", h + "px")
       
-      const svg = select(container).append("svg")
+      const svg = select(container).select("#grid-" + data.id)
                     .attr("width", w)
-                    .attr("height", h)
+                    .attr("height", h);
       
       // Add squares
       svg.selectAll("rect")
@@ -106,8 +108,10 @@ const EpisodeTracker = () => {
 
       
       // Add axes
+      const setTicks = (count) => [...Array(count).keys()].map(x => x + 1)
+
       const xAxis = axisBottom(xScale)
-                      .ticks(data.maxEpisodeCount)
+                      .tickValues(setTicks(data.maxEpisodeCount))
                       .tickSize(0);
 
       svg.append("g")
@@ -117,7 +121,7 @@ const EpisodeTracker = () => {
          .select('.domain').remove();
 
       const yAxis = axisLeft(yScale)
-                      .ticks(data.seasonCount)
+                      .tickValues(setTicks(data.seasonCount))
                       .tickFormat(x => "Season " + x)
                       .tickSize(0);
 
@@ -137,6 +141,8 @@ const EpisodeTracker = () => {
     })
   }
 
+  const showGrid = !!(userStatus.userShows?.length && userStatus.gridData.length);
+
   return (
     <section id="episode-tracker" className="episode-tracker">
       {userStatus.userShows?.length ? <h2>Episode Tracker</h2>
@@ -146,7 +152,22 @@ const EpisodeTracker = () => {
             click the "Mark as watched?" button after shuffling.
           </p>
         )}
-      {(userStatus.userShows?.length && userStatus.gridData.length) && <div ref={gridContainer}></div> }
+      {showGrid && 
+        <form>
+          <label htmlFor="select-show">
+            <span>My shows</span>
+            <select id="select-show" onChange={(e) => setSelectedShow(parseInt(e.target.value, 10))}>
+              {userStatus.gridData.map(grid => <option value={grid.id} key={grid.id}>{grid.name}</option>)}
+            </select>
+          </label>
+        </form>
+      }
+      {showGrid && 
+        <div ref={gridContainer}>
+          {userStatus.gridData.map(grid => <svg id={"grid-" + grid.id} key={grid.id}
+            style={{"display": grid.id === selectedShow ? "" : "none"}}></svg>)}
+        </div>
+      }
     </section>
   );
 };
