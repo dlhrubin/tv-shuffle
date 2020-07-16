@@ -39,15 +39,19 @@ const EpisodeTracker = () => {
               seasons.forEach(s => 
                 showGrid.episodeStatus.push(...
                   [...Array(showGrid.maxEpisodeCount).keys()]
-                  .map(num => ({
+                  .map(num => {
+                    const matchingEpisode = userStatus.userShows
+                        .filter(show => show.name === res.data.name)[0].episodes
+                        .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0];
+                    return {
                     "season" : s.season_number,
                     "episode": num + 1,
                     "exists": num <= s.episode_count,
-                    "watched": !!userStatus.userShows
-                              .filter(show => show.name === res.data.name)[0].episodes
-                              .filter(ep => ep.season === s.season_number && ep.number === num + 1)[0]
+                    "name": matchingEpisode?.name,
+                    "watched": !!matchingEpisode
+                    }
                   }
-                )))
+                ))
               );
               updatedGrids.push(showGrid)
             }
@@ -88,9 +92,9 @@ const EpisodeTracker = () => {
                       .range([margin.top, h - margin.bottom])
 
       // Set up container
-      const container = gridContainer.current;
+      const container = select(gridContainer.current).select("#grid-" + data.id);
       
-      const svg = select(container).select("#grid-" + data.id)
+      const svg = container.append("svg")
                     .attr("viewBox", "0 0 " + w + " " + h)
                     .style("max-width", w);
       
@@ -106,6 +110,27 @@ const EpisodeTracker = () => {
         .attr("height", squareSize)
         .attr("stroke", "#ffffff");
 
+      // Add tooltip
+      const tooltip = container.append("div")
+                               .attr("class", "tooltip")
+                               .style("opacity", 0);
+
+      svg.selectAll(".watched")
+         .on("mouseover", (d) => {
+           tooltip.transition()
+                  .duration(50)
+                  .style("opacity", 0.8);
+           tooltip.html("<p>" + d.name + "</p>")
+                  .style("left", (xScale(d.season) - squareSize) + "px")
+                  .style("top", (yScale(d.episode) + squareSize) + "px")
+         })
+         .on("mouseout", (d) => {
+           tooltip.transition()
+                  .duration(100)
+                  .style("opacity", 0)
+                  .style("left", 0)
+                  .style("top", 0)
+         })
       
       // Add axes
       const setTicks = (count) => [...Array(count).keys()].map(x => x + 1)
@@ -171,8 +196,10 @@ const EpisodeTracker = () => {
       }
       {showGrid && 
         <div ref={gridContainer} className="grid-container">
-          {userStatus.gridData.map(grid => <svg id={"grid-" + grid.id} key={grid.id}
-            style={{"display": selectedShow.includes(grid.id) ? "" : "none"}}></svg>)}
+          {userStatus.gridData.map(grid => 
+          <div className="grid" id={"grid-" + grid.id} key={grid.id} style={{"display": selectedShow.includes(grid.id) ? "" : "none"}}>
+          </div>
+          )}
         </div>
       }
     </section>

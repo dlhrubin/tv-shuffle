@@ -33,8 +33,32 @@
   align-items: flex-start;
 }
 
+.grid {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+
+  p {
+    background: black;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+  }
+}
+
 .watched {
   fill: #80bfff;
+}
+
+.watched:hover {
+  stroke: gold;
+  stroke-width: 2px;
 }
 
 .unwatched {
