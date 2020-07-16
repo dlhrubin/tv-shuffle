@@ -1,5 +1,6 @@
 import React from "react"
 import { silentAuth } from "./src/utils/auth"
+import Provider from './src/components/provider'
 
 class SessionCheck extends React.Component {
   constructor(props) {
@@ -27,5 +28,11 @@ class SessionCheck extends React.Component {
 }
 
 export const wrapRootElement = ({ element }) => {
-  return <SessionCheck>{element}</SessionCheck>
+  return (
+    <SessionCheck>
+      <Provider>
+        {element}
+      </Provider>
+    </SessionCheck>
+  )
 }

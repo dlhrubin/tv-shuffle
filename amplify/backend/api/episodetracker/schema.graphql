@@ -1,0 +1,16 @@
+type Episode {
+  name: String!
+  number: Int!
+  season: Int!
+}
+
+type Show {
+  name: String!
+  tmdb: Int!
+  episodes: [Episode!]!
+}
+
+type User @model {
+  id: ID!
+  shows: [Show!]!
+}

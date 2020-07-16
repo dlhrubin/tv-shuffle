@@ -1,0 +1,70 @@
+.episode-tracker {
+  flex: 1 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    width: 100%;
+  }
+
+  form {
+    margin-bottom: 1.5em;
+
+    label > * {
+      margin: 0 3px;
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    select:focus {
+      outline: none;
+    }
+  }
+}
+
+.grid-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.grid {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+
+  p {
+    background: black;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+  }
+}
+
+.watched {
+  fill: #80bfff;
+}
+
+.watched:hover {
+  stroke: gold;
+  stroke-width: 2px;
+}
+
+.unwatched {
+  fill: #cce6ff;
+}
+
+.empty {
+  fill: $light-gray;
+}

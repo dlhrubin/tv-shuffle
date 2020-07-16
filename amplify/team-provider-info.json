@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-tvshuffle-dev-131701-authRole",
+            "UnauthRoleArn": "arn:aws:iam::216284019588:role/amplify-tvshuffle-dev-131701-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::216284019588:role/amplify-tvshuffle-dev-131701-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-tvshuffle-dev-131701-deployment",
+            "UnauthRoleName": "amplify-tvshuffle-dev-131701-unauthRole",
+            "StackName": "amplify-tvshuffle-dev-131701",
+            "StackId": "arn:aws:cloudformation:us-east-1:216284019588:stack/amplify-tvshuffle-dev-131701/30bc0fe0-ba2c-11ea-8b91-0a7396047ff3",
+            "AmplifyAppId": "d2ztmvcl45ttmq"
+        }
+    }
+}

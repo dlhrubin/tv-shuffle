@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { login, isAuthenticated, getProfile } from '../utils/auth';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import { context } from '../components/provider';
 
 const AccountPage = () => {
-  if (!isAuthenticated()) {
-    login();
-  }
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      login();
+    }
+  })
 
   const user = getProfile();
 
@@ -19,7 +23,7 @@ const AccountPage = () => {
           <p>
             Hello,
             {' '}
-            {user.given_name ? user.given_name : user.nickname}
+            {user?.given_name ? user?.given_name : user?.nickname}
             !
           </p>
         )}
