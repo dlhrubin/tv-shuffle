@@ -31,6 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .grid {
@@ -39,6 +40,7 @@
 
 .tooltip {
   position: absolute;
+  z-index: 1;
 
   p {
     background: black;
