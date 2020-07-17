@@ -4,7 +4,6 @@ import SEO from '../components/seo';
 import { getUser } from '../graphql/queries';
 import axios from 'axios';
 import { context } from '../components/provider';
-import awsmobile from '../aws-exports';
 import RandomGenerator from '../components/randomGenerator';
 import { getProfile } from '../utils/auth';
 
@@ -17,7 +16,7 @@ const IndexPage = () => {
     if (user.name) {
       // Fetch user information
       if (!userStatus.userShows) {
-        axios.post(awsmobile.aws_appsync_graphqlEndpoint,
+        axios.post(process.env.GATSBY_GRAPHQL_ENDPOINT,
           {
             operationName: "GetUser",
             query: getUser,

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { context } from '../provider';
 import { getProfile } from '../../utils/auth';
 import { createUser, updateUser } from '../../graphql/mutations';
-import awsmobile from '../../aws-exports';
 
 const SaveEpisode = ({
   name, id, season, episode,
@@ -49,7 +48,7 @@ const SaveEpisode = ({
     }
     // Update database
     const inDataBase = userStatus.userShows.length;
-    axios.post(awsmobile.aws_appsync_graphqlEndpoint,
+    axios.post(process.env.GATSBY_GRAPHQL_ENDPOINT,
       {
         operationName: inDataBase ? 'UpdateUser' : 'CreateUser',
         query: inDataBase ? updateUser : createUser,
