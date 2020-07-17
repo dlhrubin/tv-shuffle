@@ -35,6 +35,19 @@
 
 .grid {
   position: relative;
+
+  button { 
+    position: absolute;
+    background: none;
+    outline: none;
+    border: none;
+    color: $dark-accent;
+    font-size: 1em;
+  }
+
+  button:hover {
+    color: $light-accent;
+  }
 }
 
 .tooltip {

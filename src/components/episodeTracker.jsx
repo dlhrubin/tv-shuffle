@@ -77,7 +77,7 @@ const EpisodeTracker = () => {
     gridData.forEach((data) => {
       
       // Define constants
-      const margin = {top: 30, right: 50, bottom: 50, left: 50};
+      const margin = {top: 30, right: 45, bottom: 30, left: 45};
       const squareSize = 25;
       const w = (data.seasonCount - 1) * squareSize + margin.left + margin.right;
       const h = (data.maxEpisodeCount - 1) * squareSize + margin.top + margin.bottom;
@@ -162,8 +162,7 @@ const EpisodeTracker = () => {
          .attr("y", margin.top / 4)
          .attr("text-anchor", "middle")
          .attr("dominant-baseline", "middle")
-         .text(data.name)
-
+         .text(data.name);
     })
   }
 
@@ -198,6 +197,7 @@ const EpisodeTracker = () => {
         <div ref={gridContainer} className="grid-container">
           {userStatus.gridData.map(grid => 
           <div className="grid" id={"grid-" + grid.id} key={grid.id} style={{"display": selectedShow.includes(grid.id) ? "" : "none"}}>
+            <button aria-label="Edit grid" style={{display: selectedShow.length > 1 ? "none" : ""}}><i className="fas fa-edit"></i></button>
           </div>
           )}
         </div>
