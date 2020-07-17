@@ -1,10 +1,4 @@
 @media only screen and (min-width: 450px) {
-  .app {
-    max-height: 700px;
-    border: 2px solid $highlight;
-    border-radius: 5px;
-  }
-
   .results {
     min-height: 3.5em;
   }
@@ -15,7 +9,7 @@
     flex: none;
     flex-direction: row;
     justify-content: space-between;
-    width: 450px;
+    width: 475px;
 
     form {
       margin: 0.875em 0 0 0;

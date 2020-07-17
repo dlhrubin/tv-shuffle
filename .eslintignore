@@ -4,3 +4,7 @@ jest-preprocess.js
 __mocks__/*
 public/*
 **/*.test.jsx
+gatsby-browser.js
+gatsby-ssr.js
+gatsby-node.js
+auth.js

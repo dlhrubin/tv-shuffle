@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { getProfile } from '../utils/auth';
 import Search from './randomGenerator/search';
 import Shuffle from './randomGenerator/shuffle';
 import PreviewImage from './randomGenerator/previewImage';
 import Results from './randomGenerator/results';
+import SaveEpisode from './randomGenerator/saveEpisode';
 
 const RandomGenerator = () => {
   const [show, setShow] = useState({
@@ -18,6 +20,8 @@ const RandomGenerator = () => {
     name: '',
     number: 0,
   });
+
+  const user = getProfile();
 
   return (
     <>
@@ -36,6 +40,15 @@ const RandomGenerator = () => {
       />
       <PreviewImage poster={show.poster} name={show.name} />
       <Results name={show.name} season={userSeason || randomSeason} episode={episode} />
+      {user.name
+        && (
+        <SaveEpisode
+          name={show.name}
+          id={show.id}
+          season={userSeason || randomSeason}
+          episode={episode}
+        />
+        )}
     </>
   );
 };

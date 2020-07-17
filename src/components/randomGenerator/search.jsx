@@ -30,46 +30,34 @@ const Search = ({ handleSetShow, handleSetUserSeason, handleSetEpisode }) => {
                 api_key: process.env.GATSBY_API_KEY,
               },
             }).then((showRes) => {
-            // No check for non-zero length results here b/c we're searching by ID number, so we
-            // already know this show is in the database
             const showInfo = showRes.data;
-            // Check that show has at least 1 episode
-            if (!showInfo.number_of_episodes) {
+            const seasonsInfo = showInfo.seasons.filter((s) => s.season_number !== 0);
+            const missingSeasons = seasonsInfo.length !== seasonsInfo.slice(-1)[0].season_number;
+            // Check for at least 1 episode and no missing seasons
+            if (!showInfo.number_of_episodes || missingSeasons) {
               setErrorMessage('No data available for this title');
             } else {
               // Map episode numbers to seasons
               let episodeCounter = 0;
               const episodeMap = [];
-              const seasons = [];
-              let missingData = false;
-              for (let i = 1; i <= showInfo.number_of_seasons; i++) {
-                const season = showInfo.seasons.filter((s) => s.season_number === i)[0];
-                if (!season) {
-                  missingData = true;
-                  break;
-                }
-                seasons.push(season.season_number);
+              seasonsInfo.forEach((season) => {
                 episodeMap.push({
                   first: episodeCounter + 1,
                   last: episodeCounter + season.episode_count,
                   season: season.season_number,
                 });
                 episodeCounter += season.episode_count;
-              }
-              if (missingData || episodeCounter !== showInfo.number_of_episodes) {
-                setErrorMessage('No data available for this title');
-              } else {
-                handleSetShow({
-                  name: show.name,
-                  id: show.id,
-                  // Catch if a show doesn't have a poster
-                  poster: ('poster_path' in show && show.poster_path)
-                    ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : '',
-                  numEpisodes: showInfo.number_of_episodes,
-                  episodeMap,
-                });
-                setSeasonOptions(seasons);
-              }
+              });
+              handleSetShow({
+                name: show.name,
+                id: show.id,
+                // Catch if a show doesn't have a poster
+                poster: ('poster_path' in show && show.poster_path)
+                  ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : '',
+                numEpisodes: showInfo.number_of_episodes,
+                episodeMap,
+              });
+              setSeasonOptions(seasonsInfo.map((s) => s.season_number));
             }
           });
         } else {

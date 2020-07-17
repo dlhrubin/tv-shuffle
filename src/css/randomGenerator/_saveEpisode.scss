@@ -1,0 +1,28 @@
+.save-btn {
+  background: $dark-accent;
+  border: none;
+  color: white;
+  font-family: inherit;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 1em;
+  font-weight: bold;
+  visibility: hidden;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+
+  span {
+    flex: 1 1;
+    margin-left: 10px;
+  }
+}
+
+.save-btn:hover {
+  background: $light-accent;
+}
+
+.save-btn:disabled {
+  background: $dark-gray;
+  cursor: default;
+}
