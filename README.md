@@ -10,9 +10,10 @@ TV Shuffle selects random episodes of TV shows to watch.
 * Search for a TV show (if available, the show's poster will be also displayed)
 * Optionally, choose a specific season from which to select the random episode
 * Click the shuffle button to randomly select an episode to watch (dislays episode number and name)
+* Log in and track which episodes you've watched
 * Progressive Web App
 * Deployed with AWS Amplify
-* Coming soon: user authentication and ability to track which episodes you've watched
+* User authentication via Auth0
 
 ## Running
 
@@ -32,6 +33,7 @@ This project was built using Gatsby.
 
 * React
 * React-DOM
+* GraphQL
 * SCSS
 * Axios
 * React Testing Library
