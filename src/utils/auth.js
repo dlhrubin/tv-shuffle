@@ -75,5 +75,5 @@ export const getProfile = () => user;
 
 export const logout = () => {
   localStorage.setItem('isLoggedIn', false);
-  auth.logout();
+  auth.logout({returnTo: process.env.GATSBY_APP_URL, client_id: process.env.GATSBY_AUTH0_CLIENTID});
 };
